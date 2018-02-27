@@ -1,0 +1,12 @@
+Handlers:
+  Prefetch:
+    match:
+      attribute: "fullname"
+      value: "[.]pf$"
+    tool_cmd: "Tools/RustyPrefetch.exe -s {}"
+
+  Mft:
+    match:
+      attribute: "fullname"
+      value: "^[$]MFT$"
+    tool_cmd: "Tools/RustyMft.exe -s {}"

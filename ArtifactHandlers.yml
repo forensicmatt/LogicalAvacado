@@ -1,0 +1,37 @@
+Handlers:
+  Prefetch:
+    extractor: "regular"
+    match:
+      attribute: "filename"
+      value: "[.]pf$"
+    tool_cmd: "Tools/RustyPrefetch.exe -s {}"
+  Mft:
+    extractor: "regular"
+    match:
+      attribute: "filename"
+      value: "^[$]MFT$"
+    tool_cmd: "Tools/RustyMft.exe -s {}"
+  Lnk:
+    extractor: "regular"
+    match:
+      attribute: "filename"
+      value: "[.]lnk$"
+    tool_cmd: "Tools/RustyLnk.exe -s {}"
+  Registry:
+    extractor: "regular"
+    match:
+      attribute: "fullname"
+      value: "[.]/Windows/System32/config/(SECURITY|SOFTWARE|SYSTEM)$"
+    tool_cmd: "Tools/RustyReg.exe -s {}"
+  Usn:
+    extractor: "usn"
+    match:
+      attribute: "fullname"
+      value: "^./[$]Extend/[$]UsnJrnl[:][$]J$"
+    tool_cmd: "Tools/RustyUsn.exe -s {}"
+  WinEvents:
+    extractor: "regular"
+    match:
+      attribute: "filename"
+      value: "[.](evt|evtx)$"
+    tool_cmd: "python Tools/events2jsonl.py -s {}"
