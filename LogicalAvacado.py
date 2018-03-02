@@ -4,6 +4,7 @@ import argparse
 from lib import EnumHandlers as Eh
 from lib import ArtifactHandler as Ah
 from lib.ArangoHandler import ArangoHandler
+from lib.LogicalToolHandler import LogicalToolManager
 
 logging.basicConfig(
     level=logging.INFO
@@ -30,7 +31,7 @@ def get_arguments():
         action="store",
         required=True,
         type=unicode,
-        help=u"TEMP_DIR (Make sure this is a on a volume that can handle large files.)"
+        help=u"TEMP_DIR (Make sure this is on a volume that can handle large files.)"
     )
     arguments.add_argument(
         "-d", "--database",
@@ -38,7 +39,7 @@ def get_arguments():
         action="store",
         required=True,
         type=unicode,
-        help=u"The name of the database you want to create inside in ArangoDB."
+        help=u"The name of the database you want to create inside of ArangoDB."
     )
 
     return arguments
@@ -56,9 +57,17 @@ def main():
         options.database
     )
 
+    tool_manager = LogicalToolManager.from_file(
+        u"LogicalHandlers.yml"
+    )
+    tool_manager.run(
+        arango_handler, options
+    )
+
     handler_mapping = Ah.ArtifactMapping.from_file(
         u"ArtifactHandlers.yml"
     )
+
     le = Eh.LogicalEnumerator(
         tsk_img, handler_mapping,
         arango_handler, options.temp_dir,

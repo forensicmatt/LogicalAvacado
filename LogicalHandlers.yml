@@ -1,0 +1,4 @@
+Handlers:
+  LogicalRegTool:
+    tool: "python ..\\LogicalRegTool\\LogicalRegTool.py"
+    parameters: "-s {0.source}"
