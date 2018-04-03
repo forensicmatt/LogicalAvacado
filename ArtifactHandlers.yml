@@ -11,12 +11,6 @@ Handlers:
       attribute: "filename"
       value: "^[$]MFT$"
     tool_cmd: "Tools/RustyMft.exe -s {}"
-  Lnk:
-    extractor: "regular"
-    match:
-      attribute: "filename"
-      value: "[.]lnk$"
-    tool_cmd: "Tools/RustyLnk.exe -s {}"
   Registry:
     extractor: "regular"
     match:
@@ -34,4 +28,4 @@ Handlers:
     match:
       attribute: "filename"
       value: "[.](evt|evtx)$"
-    tool_cmd: "python Tools/events2jsonl.py -s {}"
+    tool_cmd: "python27 Tools/events2jsonl.py -s {}"

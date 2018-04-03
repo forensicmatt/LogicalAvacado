@@ -1,10 +1,10 @@
 import pytsk3
 import logging
 import argparse
-from lib import EnumHandlers as Eh
-from lib import ArtifactHandler as Ah
-from lib.ArangoHandler import ArangoHandler
-from lib.LogicalToolHandler import LogicalToolManager
+from libla import EnumHandlers as Eh
+from libla import ArtifactHandler as Ah
+from libla.ArangoHandler import ArangoHandler
+from libla.LogicalToolHandler import LogicalToolManager
 
 logging.basicConfig(
     level=logging.INFO
@@ -22,7 +22,6 @@ def get_arguments():
         dest="source",
         action="store",
         required=True,
-        type=unicode,
         help=u"Logical source [Example: \\\\.\\C:]"
     )
     arguments.add_argument(
@@ -30,7 +29,6 @@ def get_arguments():
         dest="temp_dir",
         action="store",
         required=True,
-        type=unicode,
         help=u"TEMP_DIR (Make sure this is on a volume that can handle large files.)"
     )
     arguments.add_argument(
@@ -38,7 +36,6 @@ def get_arguments():
         dest="database",
         action="store",
         required=True,
-        type=unicode,
         help=u"The name of the database you want to create inside of ArangoDB."
     )
 

@@ -1,4 +1,7 @@
 Handlers:
-  LogicalRegTool:
+  Registry:
     tool: "python ..\\LogicalRegTool\\LogicalRegTool.py"
+    parameters: "-s {0.source} -t {0.temp_dir}"
+  LnkFiles:
+    tool: "python ..\\LogicalJmpLnkTool\\LogicalJmpLnkTool.py"
     parameters: "-s {0.source}"

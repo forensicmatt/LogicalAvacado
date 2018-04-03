@@ -6,11 +6,14 @@ import logging
 class FileInfo(object):
     def __init__(self, fullname, attribute):
         self.fullname = fullname
-        self.filename = attribute.info.fs_file.name.name
+        self.filename = attribute.info.fs_file.name.name.decode('utf-8')
         self.id = attribute.info.id
         self.type = attribute.info.type
         self.size = attribute.info.size
-        self.attribute_name = attribute.info.name
+
+        self.attribute_name = None
+        if attribute.info.name:
+            self.attribute_name = attribute.info.name.decode('utf-8')
 
 
 class LogicalEnumerator(object):
@@ -48,9 +51,9 @@ class LogicalEnumerator(object):
             stack: A list of path names that gives the full path
         """
         for tsk_file in tsk_dir:
-            filename = tsk_file.info.name.name
+            filename = tsk_file.info.name.name.decode('utf-8')
 
-            if filename in [u".",u".."]:
+            if filename in [u".", u".."]:
                 continue
 
             if hasattr(tsk_file.info, 'meta'):
@@ -81,13 +84,14 @@ class LogicalEnumerator(object):
             tsk_file (TSK File): A TSK File object
             full_path (unicode): The fullpath of this file object
         """
-        filename = tsk_file.info.name.name
-        fullname = u"/".join([full_path.decode('utf-8'),filename.decode('utf-8')])
+        filename = tsk_file.info.name.name.decode('utf-8')
+        fullname = u"/".join([full_path, filename])
 
         for attr in tsk_file:
             if attr.info.type == pytsk3.TSK_FS_ATTR_TYPE_NTFS_DATA:
                 if attr.info.name:
-                    source_path = u":".join([fullname,attr.info.name])
+                    attr_name = attr.info.name.decode('utf-8')
+                    source_path = u":".join([fullname, attr_name])
                 else:
                     source_path = fullname
 

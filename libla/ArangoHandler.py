@@ -42,7 +42,7 @@ class ArangoHandler(object):
         )
 
         commit = []
-        lines = lines.split("\n")
+        lines = lines.split(b"\n")
         count = 0
         for line in lines:
             try:

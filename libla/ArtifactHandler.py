@@ -3,7 +3,7 @@ import yaml
 import shlex
 import logging
 import subprocess
-from Extractors import RegularExtractor, UsnExtractor
+from libla.Extractors import RegularExtractor, UsnExtractor
 
 
 class ArtifactMapping(object):
@@ -46,7 +46,7 @@ class MatchFilter(object):
         return MatchFilter(**dictionary)
 
     def matches(self, file_info):
-        attribute_value = getattr(file_info,self.attribute,None)
+        attribute_value = getattr(file_info, self.attribute, None)
         if attribute_value is not None:
             if self.regexp.search(attribute_value):
                 return True
@@ -69,7 +69,9 @@ class ArtifactHandler(object):
 
     @staticmethod
     def from_dict(name, dictionary):
-        match = MatchFilter.from_dict(dictionary['match'])
+        match = MatchFilter.from_dict(
+            dictionary['match']
+        )
         return ArtifactHandler(
             name,
             match,
